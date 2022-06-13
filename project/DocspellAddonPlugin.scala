@@ -55,7 +55,7 @@ object DocspellAddonPlugin extends AutoPlugin {
     addonCollectOutput := true,
     addonCreateDescriptor :=
       createDescriptor(
-        (target.value / "addon"),
+        target.value / "addon",
         addonMetaName.value,
         addonMetaVersion.value,
         addonMetaDescription.value,
