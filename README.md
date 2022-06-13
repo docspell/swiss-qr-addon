@@ -42,7 +42,7 @@ add-tags:
   - Invoice
   - QR-Code
 
-check-tags
+check-tags:
   - Invoice
 ```
 
