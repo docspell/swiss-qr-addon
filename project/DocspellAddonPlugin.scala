@@ -49,7 +49,7 @@ object DocspellAddonPlugin extends AutoPlugin {
     addonDockerEnable := false,
     addonDockerImageName :=
       (Docker / dockerUsername).value
-        .map(user => s"$user/${(Docker / packageName).value}"),
+        .map(user => s"$user/${(Docker / packageName).value}:${(Docker / version).value}"),
     addonTrivialEnable := true,
     addonNetworking := false,
     addonCollectOutput := true,
