@@ -44,6 +44,8 @@ add-tags:
 
 check-tags:
   - Invoice
+
+additional-as-name: true
 ```
 
 The `field-currency` is a map that defines the name of a custom field
@@ -57,6 +59,10 @@ With `check-tags` you can tell the addon to only run when at least on
 of the defined tags are already present on an item. This can be useful
 if the tag classification works well and so you only apply this addon
 to documents classified as "Invoice", for example.
+
+The flag `additional-as-name` controls whether to set the item name
+from the _additional information_ provided in the qr code. Quite often
+this line is some sense of title of that invoice.
 
 Each section is optional. You need to define `field-currency` and
 `add-tags` if you want to add additional tags or set the amount to a
