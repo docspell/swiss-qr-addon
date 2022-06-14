@@ -25,6 +25,10 @@ object Output:
   object AddNotes:
     given jsonEncoder: Encoder[AddNotes] = deriveEncoder
 
+  case class SetName(name: String, action: String = "set-name") extends Action
+  object SetName:
+    given jsonEncoder: Encoder[SetName] = deriveEncoder
+
   case class AddTags(tags: List[String], action: String = "add-tags") extends Action
   object AddTags:
     given jsonEncoder: Encoder[AddTags] = deriveEncoder
@@ -35,6 +39,7 @@ object Output:
         case c: SetField => c.asJson
         case c: AddNotes => c.asJson
         case c: AddTags  => c.asJson
+        case c: SetName  => c.asJson
       }
 
   case class Command(

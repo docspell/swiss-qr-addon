@@ -89,7 +89,12 @@ object Main extends IOApp:
     val addNotes: Output.Action =
       Output.AddNotes(qrs.map(_.show).toList.mkString("\n\n"), "----")
 
-    Output(itemMetadata.id, addNotes :: setFields ::: addTags)
+    val setName: List[Output.Action] =
+      if (cfg.additionalAsName.exists(identity))
+        qrs.head.additional.headOption.toList.map(name => Output.SetName(name))
+      else Nil
+
+    Output(itemMetadata.id, addNotes :: setFields ::: addTags ::: setName)
 
   /** Print to stderr. */
   def errln(msg: String): IO[Unit] =

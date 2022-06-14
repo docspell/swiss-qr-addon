@@ -22,7 +22,34 @@ class ConfigParseTest extends CatsEffectSuite:
         Config(
           Some(Map("CHF" -> "chf", "EUR" -> "eur")),
           Some(List("Invoice", "QR-Code")),
+          None,
           None
+        )
+      )
+    } yield ()
+  }
+
+  test("parse with missing pieces 2") {
+    val yamlString =
+      """field-currency:
+        |  CHF: chf
+        |  EUR: eur
+        |
+        |additional-as-name: true
+        |
+        |add-tags:
+        |  - Invoice
+        |  - QR-Code""".stripMargin
+
+    for {
+      cfg <- Config.fromYaml[IO](yamlString)
+      _ = assertEquals(
+        cfg,
+        Config(
+          Some(Map("CHF" -> "chf", "EUR" -> "eur")),
+          Some(List("Invoice", "QR-Code")),
+          None,
+          Some(true)
         )
       )
     } yield ()

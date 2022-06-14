@@ -9,7 +9,8 @@ import io.circe.syntax.*
 case class Config(
     fieldCurrency: Option[Map[String, String]],
     addTags: Option[List[String]],
-    checkTags: Option[List[String]]
+    checkTags: Option[List[String]],
+    additionalAsName: Option[Boolean]
 ):
   def getFieldName(currencyCode: String): Option[String] =
     fieldCurrency.flatMap(m => m.get(currencyCode).orElse(m.get("*")))
@@ -34,12 +35,14 @@ object Config:
       .rethrow
 
   val default: Config =
-    Config(None, None, None)
+    Config(None, None, None, None)
 
   given jsonDecoder: Decoder[Config] =
-    Decoder.forProduct3("field-currency", "add-tags", "check-tags")(Config.apply)
+    Decoder.forProduct4("field-currency", "add-tags", "check-tags", "additional-as-name")(
+      Config.apply
+    )
 
   given jsonEncoder: Encoder[Config] =
-    Encoder.forProduct3("field-currency", "add-tags", "check-tags")(cfg =>
-      (cfg.fieldCurrency, cfg.addTags, cfg.checkTags)
+    Encoder.forProduct4("field-currency", "add-tags", "check-tags", "additional-as-name")(
+      cfg => (cfg.fieldCurrency, cfg.addTags, cfg.checkTags, cfg.additionalAsName)
     )
