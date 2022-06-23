@@ -8,7 +8,7 @@ object Dependencies {
     val decline = "2.2.0"
     val munit = "0.7.29"
     val munitCatsEffect = "1.0.7"
-    val scala = "3.1.2"
+    val scala = "3.1.3"
     val fs2 = "3.2.8"
     val pdfbox = "2.0.26"
     val boofcv = "0.40.1"
