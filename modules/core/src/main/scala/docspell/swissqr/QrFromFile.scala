@@ -3,11 +3,11 @@ package docspell.swissqr
 import cats.effect.*
 import cats.syntax.all.*
 import docspell.swissqr.FileTypeTest.FileType
-import docspell.swissqr.{QrReader, QrTextReader, SwissQR}
+import docspell.swissqr.*
 import fs2.io.file.Path
 
 trait QrFromFile[F[_]]:
-  def read(file: Path, scaleFactor: Float): F[Option[List[Either[String, SwissQR]]]]
+  def read(file: Path, scaleFactor: Float): QrResult[F]
 
 object QrFromFile:
   def apply[F[_]: Async](
@@ -16,7 +16,7 @@ object QrFromFile:
   ): QrFromFile[F] =
     new QrFromFile[F]:
       def read(file: Path, scaleFactor: Float) =
-        fileTest.getFileType(file).flatMap {
+        QrResult[F](fileTest.getFileType(file).flatMap {
           case Some(FileType.Pdf) =>
             loader
               .loadPDF(file)
@@ -31,4 +31,4 @@ object QrFromFile:
 
           case None =>
             None.pure[F]
-        }
+        })
