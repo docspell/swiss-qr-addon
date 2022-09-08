@@ -19,7 +19,7 @@ object Main
     Config.opts.map { cfg =>
       val loader = FileLoader[IO]
       val fileTest = FileTypeTest.fromExt[IO]
-      QrFromFile(loader, fileTest).read(cfg.file, cfg.pdfScaleFactor).flatMap {
+      QrFromFile(loader, fileTest).read(cfg.file, cfg.pdfScaleFactor).value.flatMap {
         case Some(qrs) =>
           val (failed, ok) = qrs.partitionEither(identity)
           for {

@@ -20,7 +20,7 @@ object Main extends IOApp:
       itemData <- env.itemMeta[IO]
       output <-
         if (isApplicable(itemData, cfg))
-          processFiles(itemData, env)
+          processFiles(env)
             .flatTap(qrs => errln(s"Creating result data from ${qrs.size} qr codes"))
             .map { qrs =>
               NonEmptyList
@@ -40,18 +40,23 @@ object Main extends IOApp:
       itemMetadata.tags ::: itemMetadata.assumedTags
     )
 
-  def processFiles(
-      itemData: ItemMetadata,
-      env: AddonEnv
-  ): IO[List[SwissQR]] =
+  def processFiles(env: AddonEnv): IO[List[SwissQR]] =
     for {
-      props <- env.fileProperties[IO]
-      attachments = props.map(a => env.itemPdfDir / a.id)
-      fileTest = new FileTest(props)
+      pdfProps <- env.pdfProperties[IO]
+      origProps <- env.originalProperites[IO]
+      fileTest = new FileTest(env, pdfProps, origProps)
       reader = QrFromFile(FileLoader[IO], fileTest)
-      _ <- errln(s"Detecting QR codes in ${props.size} files")
+      attachments = pdfProps.map(a => env.itemOriginalDir / a.id -> env.itemPdfDir / a.id)
+
+      _ <- errln(s"Detecting QR codes in ${pdfProps.size} files")
       qrResults <- attachments
-        .flatTraverse(file => reader.read(file, 96f).map(_.toList.flatten))
+        .flatTraverse { case (orig, converted) =>
+          reader
+            .read(orig, 96f)
+            .orElse(reader.read(converted, 96f))
+            .value
+            .map(_.toList.flatten)
+        }
       (failed, ok) = qrResults.partitionEither(identity)
       _ <-
         if (failed.nonEmpty) errln(s"Failed to read ${failed.size} files")
@@ -100,10 +105,19 @@ object Main extends IOApp:
   def errln(msg: String): IO[Unit] =
     IO(Console.err.println(msg))
 
-  class FileTest(attachments: List[FileProperties]) extends FileTypeTest[IO]:
+  class FileTest(
+      env: AddonEnv,
+      attachments: List[FileProperties],
+      originals: List[FileProperties]
+  ) extends FileTypeTest[IO]:
     def getFileType(file: Path): IO[Option[FileType]] =
       val id = file.fileName.toString
-      attachments
+      val parent = file.parent
+      if (env.itemOriginalDir.some == parent) findMime(originals, id)
+      else findMime(attachments, id)
+
+    private def findMime(list: List[FileProperties], id: String) =
+      list
         .find(_.id == id)
         .map(_.mimetype)
         .map {
