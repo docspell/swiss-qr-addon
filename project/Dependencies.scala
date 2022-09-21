@@ -12,7 +12,7 @@ object Dependencies {
     val fs2 = "3.3.0"
     val pdfbox = "2.0.26"
     val boofcv = "0.41"
-    val slf4j = "1.7.36"
+    val slf4j = "2.0.2"
   }
 
   val circe = Seq(
