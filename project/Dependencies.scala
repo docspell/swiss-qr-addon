@@ -10,7 +10,7 @@ object Dependencies {
     val munitCatsEffect = "1.0.7"
     val scala = "3.2.0"
     val fs2 = "3.3.0"
-    val pdfbox = "2.0.26"
+    val pdfbox = "2.0.27"
     val boofcv = "0.41"
     val slf4j = "1.7.36"
   }
