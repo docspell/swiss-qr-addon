@@ -5,7 +5,7 @@ object Dependencies {
     val cats = "2.8.0"
     val circe = "0.14.3"
     val circeYaml = "0.14.1"
-    val decline = "2.3.0"
+    val decline = "2.3.1"
     val munit = "0.7.29"
     val munitCatsEffect = "1.0.7"
     val scala = "3.2.0"
