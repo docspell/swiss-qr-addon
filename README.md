@@ -13,7 +13,7 @@ metadata to the document.
 # Usage
 
 Use the latest released ZIP file to install this addon. It can be found
-[here](https://github.com/docspell/swiss-qr-addon/releases/download/latest).
+[here](https://github.com/docspell/swiss-qr-addon/releases/latest).
 
 Create a new [addon run
 configuration](https://docspell.org/docs/addons/using/#run-configuration)
