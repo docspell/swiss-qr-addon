@@ -2,16 +2,16 @@ import sbt._
 
 object Dependencies {
   object V {
-    val cats = "2.8.0"
-    val circe = "0.14.3"
-    val circeYaml = "0.14.1"
-    val decline = "2.3.1"
+    val cats = "2.9.0"
+    val circe = "0.14.4"
+    val circeYaml = "0.14.2"
+    val decline = "2.4.1"
     val munit = "0.7.29"
     val munitCatsEffect = "1.0.7"
-    val scala = "3.2.0"
-    val fs2 = "3.3.0"
+    val scala = "3.2.2"
+    val fs2 = "3.6.1"
     val pdfbox = "2.0.27"
-    val boofcv = "0.41"
+    val boofcv = "0.42"
     val slf4j = "1.7.36"
   }
 
