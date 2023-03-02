@@ -52,14 +52,9 @@ object Dependencies {
     "co.fs2" %% "fs2-io" % V.fs2
   )
 
-  val jclOverSlf4j = Seq(
-    "org.slf4j" % "jcl-over-slf4j" % V.slf4j
-  )
-
   val pdfbox = Seq(
     ("org.apache.pdfbox" % "pdfbox" % V.pdfbox).excludeAll(
-      ExclusionRule("org.bouncycastle"),
-      ExclusionRule("commons-logging")
+      ExclusionRule("org.bouncycastle")
     )
-  ) ++ jclOverSlf4j
+  )
 }
