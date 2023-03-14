@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
   object V {
     val cats = "2.9.0"
-    val circe = "0.14.4"
+    val circe = "0.14.5"
     val circeYaml = "0.14.2"
     val decline = "2.4.1"
     val munit = "0.7.29"
