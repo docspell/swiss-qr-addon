@@ -25,4 +25,4 @@ object FileLoader:
         Sync[F].blocking(ImageIO.read(file.toNioPath.toFile))
 
       def loadText(file: Path) =
-        Files[F].readAll(file).through(fs2.text.utf8.decode).compile.string
+        Files.forAsync[F].readAll(file).through(fs2.text.utf8.decode).compile.string

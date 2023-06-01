@@ -3,3 +3,4 @@ local/
 _site/
 result
 /.bsp/sbt.json
+local.sbt
