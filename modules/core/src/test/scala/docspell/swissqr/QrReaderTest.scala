@@ -8,6 +8,17 @@ import javax.imageio.ImageIO
 
 class QrReaderTest extends FunSuite:
 
+  test("non reference type qr") {
+    val image = getClass.getResourceAsStream("/files/qr-non-reference-type.png")
+    val qrCodes: List[SwissQR] =
+      QrReader.readImage(ImageIO.read(image)).map(_.fold(fail(_), identity))
+
+    assertEquals(qrCodes.size, 1)
+    val qr = qrCodes.head
+    assertEquals(qr.amount, Amount.chf(1.25))
+    assert(qr.debitor.isDefined)
+  }
+
   test("quick test") {
     val image = getClass.getResourceAsStream("/files/qr-test-image.png")
     val pdf = PDDocument.load(getClass.getResourceAsStream("/files/qr-test-image.pdf"))

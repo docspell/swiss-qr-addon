@@ -78,6 +78,7 @@ object SwissQR:
       amount.map(_.setScale(2, BigDecimal.RoundingMode.HALF_UP)).map(_.toString())
 
   object Amount:
+    def chf(amount: Double): Amount = Amount(Some(BigDecimal.valueOf(amount)), "CHF")
     given jsonDecoder: Decoder[Amount] = deriveDecoder
     given jsonEncoder: Encoder[Amount] = deriveEncoder
     given show: Show[Amount] =
@@ -86,6 +87,7 @@ object SwissQR:
   enum ReferenceType(val code: String):
     case QRR extends ReferenceType("QRR")
     case SCOR extends ReferenceType("SCOR")
+    case NON extends ReferenceType("NON")
 
   object ReferenceType:
     def fromString(str: String): Either[String, ReferenceType] =
