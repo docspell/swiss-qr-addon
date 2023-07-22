@@ -78,6 +78,7 @@ object SwissQR:
       amount.map(_.setScale(2, BigDecimal.RoundingMode.HALF_UP)).map(_.toString())
 
   object Amount:
+    def chf(amount: Double): Amount = Amount(Some(BigDecimal.valueOf(amount)), "CHF")
     given jsonDecoder: Decoder[Amount] = deriveDecoder
     given jsonEncoder: Encoder[Amount] = deriveEncoder
     given show: Show[Amount] =
@@ -86,6 +87,7 @@ object SwissQR:
   enum ReferenceType(val code: String):
     case QRR extends ReferenceType("QRR")
     case SCOR extends ReferenceType("SCOR")
+    case NON extends ReferenceType("NON")
 
   object ReferenceType:
     def fromString(str: String): Either[String, ReferenceType] =
@@ -117,14 +119,36 @@ object SwissQR:
     Show.show { qr =>
       val creditor =
         qr.creditor.show.split("\r?\n").map(line => s"  $line").mkString("\n")
+
+      val debitor =
+        qr.debitor.map { d =>
+          val address = d.show.split("\r?\n").map(line => s"  $line").mkString("\n")
+          s"""- Debitor:
+             |  ```
+             |$address
+             |  ```""".stripMargin
+        }
+
       val adds = qr.additional.map(line => s"  - $line").mkString("\n")
-      s"""- Account: `${qr.account}`
-         |- Amount: ${qr.amount.show}
-         |- Reference: ${qr.reference.ref}
-         |- Creditor:
-         |  ```
-         |${creditor}
-         |  ```
-         |- Additional:
-         |$adds""".stripMargin
+
+      val parts = List(
+        s"- Account: `${qr.account}``",
+        s"- Amount: ${qr.amount.show}",
+        qr.reference match
+          case Reference(ReferenceType.NON, _) => ""
+          case Reference(_, id)                => s"- Reference: `$id`"
+        ,
+        s"""- Creditor:
+           |  ```
+           |$creditor
+           |  ```""".stripMargin,
+        debitor.getOrElse(""),
+        qr.additional match
+          case Nil => ""
+          case _ =>
+            s"""- Additional:
+               |$adds""".stripMargin
+      )
+
+      parts.filter(_.nonEmpty).mkString("\n")
     }
