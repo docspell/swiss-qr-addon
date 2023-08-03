@@ -132,7 +132,7 @@ object SwissQR:
       val adds = qr.additional.map(line => s"  - $line").mkString("\n")
 
       val parts = List(
-        s"- Account: `${qr.account}``",
+        s"- Account: `${qr.account}`",
         s"- Amount: ${qr.amount.show}",
         qr.reference match
           case Reference(ReferenceType.NON, _) => ""
