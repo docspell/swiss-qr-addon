@@ -9,7 +9,6 @@ import org.apache.pdfbox.pdmodel.PDDocument
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
 
-
 trait FileLoader[F[_]]:
   def loadPDF(file: Path): Resource[F, PDDocument]
   def loadImage(file: Path): F[BufferedImage]
