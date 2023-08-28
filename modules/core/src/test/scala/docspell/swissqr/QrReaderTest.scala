@@ -2,6 +2,8 @@ package docspell.swissqr
 
 import docspell.swissqr.SwissQR.{Amount, Header, Reference, ReferenceType}
 import munit.*
+import org.apache.pdfbox.Loader
+import org.apache.pdfbox.io.RandomAccessReadBuffer
 import org.apache.pdfbox.pdmodel.PDDocument
 
 import javax.imageio.ImageIO
@@ -21,7 +23,9 @@ class QrReaderTest extends FunSuite:
 
   test("quick test") {
     val image = getClass.getResourceAsStream("/files/qr-test-image.png")
-    val pdf = PDDocument.load(getClass.getResourceAsStream("/files/qr-test-image.pdf"))
+    val pdf = Loader.loadPDF(
+      new RandomAccessReadBuffer(getClass.getResourceAsStream("/files/qr-test-image.pdf"))
+    )
 
     val txtText = QrTextReader.read(testQR).fold(fail(_), identity)
     val imgText = QrReader.readImage(ImageIO.read(image)).map(_.fold(fail(_), identity))

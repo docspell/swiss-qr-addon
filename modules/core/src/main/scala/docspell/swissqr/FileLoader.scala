@@ -3,10 +3,12 @@ package docspell.swissqr
 import cats.effect.*
 import fs2.Stream
 import fs2.io.file.{Files, Path}
+import org.apache.pdfbox.Loader
 import org.apache.pdfbox.pdmodel.PDDocument
 
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
+
 
 trait FileLoader[F[_]]:
   def loadPDF(file: Path): Resource[F, PDDocument]
@@ -17,7 +19,7 @@ object FileLoader:
   def apply[F[_]: Async]: FileLoader[F] =
     new FileLoader[F]:
       def loadPDF(file: Path) =
-        val make = Sync[F].blocking(PDDocument.load(file.toNioPath.toFile))
+        val make = Sync[F].blocking(Loader.loadPDF(file.toNioPath.toFile))
         def release(doc: PDDocument) = Sync[F].blocking(doc.close())
         Resource.make(make)(release)
 
