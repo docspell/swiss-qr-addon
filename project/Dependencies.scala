@@ -3,13 +3,13 @@ import sbt._
 object Dependencies {
   object V {
     val cats = "2.10.0"
-    val circe = "0.14.5"
+    val circe = "0.14.6"
     val circeYaml = "0.14.2"
     val decline = "2.4.1"
     val munit = "0.7.29"
     val munitCatsEffect = "1.0.7"
     val scala = "3.3.0"
-    val fs2 = "3.8.0"
+    val fs2 = "3.9.1"
     val pdfbox = "3.0.0"
     val boofcv = "1.0.0"
     val slf4j = "2.0.6"
