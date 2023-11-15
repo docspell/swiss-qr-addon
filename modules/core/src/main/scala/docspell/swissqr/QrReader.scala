@@ -16,6 +16,7 @@ import java.io.File
 import java.util.logging.{Level, Logger}
 import javax.imageio.ImageIO
 import scala.jdk.CollectionConverters.*
+import scala.collection.immutable.Seq
 
 object QrReader:
   private[this] val logger: Logger = Logger.getLogger("QrReader")
