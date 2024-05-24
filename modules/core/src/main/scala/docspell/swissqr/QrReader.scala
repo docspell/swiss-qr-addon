@@ -19,7 +19,7 @@ import scala.jdk.CollectionConverters.*
 import scala.collection.immutable.Seq
 
 object QrReader:
-  private[this] val logger: Logger = Logger.getLogger("QrReader")
+  private val logger: Logger = Logger.getLogger("QrReader")
 
   private val maxImageSize = 600 * 600
 

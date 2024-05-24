@@ -7,8 +7,8 @@ object Dependencies {
     val circeYaml = "0.15.1"
     val decline = "2.4.1"
     val munit = "1.0.0"
-    val munitCatsEffect = "1.0.7"
-    val scala = "3.3.1"
+    val munitCatsEffect = "2.0.0"
+    val scala = "3.4.2"
     val fs2 = "3.10.2"
     val pdfbox = "3.0.2"
     val boofcv = "1.1.4"
@@ -39,7 +39,7 @@ object Dependencies {
   val munit = Seq(
     "org.scalameta" %% "munit" % V.munit,
     "org.scalameta" %% "munit-scalacheck" % V.munit,
-    "org.typelevel" %% "munit-cats-effect-3" % V.munitCatsEffect
+    "org.typelevel" %% "munit-cats-effect" % V.munitCatsEffect
   )
 
   val decline = Seq(
