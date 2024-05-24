@@ -6,12 +6,12 @@ object Dependencies {
     val circe = "0.15.0-M1"
     val circeYaml = "0.15.1"
     val decline = "2.4.1"
-    val munit = "0.7.29"
+    val munit = "1.0.0"
     val munitCatsEffect = "1.0.7"
     val scala = "3.3.1"
-    val fs2 = "3.9.4"
-    val pdfbox = "3.0.1"
-    val boofcv = "1.1.3"
+    val fs2 = "3.10.2"
+    val pdfbox = "3.0.2"
+    val boofcv = "1.1.4"
     val slf4j = "2.0.6"
   }
 
