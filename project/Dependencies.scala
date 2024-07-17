@@ -11,7 +11,7 @@ object Dependencies {
     val scala = "3.4.2"
     val fs2 = "3.10.2"
     val pdfbox = "3.0.2"
-    val boofcv = "1.1.4"
+    val boofcv = "1.1.5"
     val slf4j = "2.0.6"
   }
 
