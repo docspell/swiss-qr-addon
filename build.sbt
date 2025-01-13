@@ -4,9 +4,12 @@ val sharedSettings = Seq(
   organization := "org.docspell.addon.swissqr",
   scalaVersion := Dependencies.V.scala,
   startYear := Some(2022),
-  licenses += ("GPL-3.0-or-later", url(
-    "https://spdx.org/licenses/GPL-3.0-or-later.html"
-  )),
+  licenses += (
+    "GPL-3.0-or-later",
+    url(
+      "https://spdx.org/licenses/GPL-3.0-or-later.html"
+    )
+  ),
   javacOptions ++= Seq("-target", "1.8", "-source", "1.8"),
   scalacOptions ++= Seq(
     "-feature",
