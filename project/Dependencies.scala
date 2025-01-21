@@ -2,7 +2,7 @@ import sbt._
 
 object Dependencies {
   object V {
-    val cats = "2.12.0"
+    val cats = "2.13.0"
     val circe = "0.15.0-M1"
     val circeYaml = "0.15.1"
     val decline = "2.4.1"
@@ -31,7 +31,7 @@ object Dependencies {
   )
 
   val boofcv = Seq(
-    "org.boofcv" % "boofcv-core" % V.boofcv excludeAll(
+    ("org.boofcv" % "boofcv-core" % V.boofcv).excludeAll(
       ExclusionRule("org.yaml", "snakeyaml")
     )
   )
