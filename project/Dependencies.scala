@@ -10,7 +10,7 @@ object Dependencies {
     val munitCatsEffect = "2.0.0"
     val scala = "3.4.2"
     val fs2 = "3.10.2"
-    val pdfbox = "3.0.2"
+    val pdfbox = "3.0.6"
     val boofcv = "1.1.5"
     val slf4j = "2.0.6"
   }
@@ -31,7 +31,7 @@ object Dependencies {
   )
 
   val boofcv = Seq(
-    "org.boofcv" % "boofcv-core" % V.boofcv excludeAll(
+    ("org.boofcv" % "boofcv-core" % V.boofcv).excludeAll(
       ExclusionRule("org.yaml", "snakeyaml")
     )
   )
