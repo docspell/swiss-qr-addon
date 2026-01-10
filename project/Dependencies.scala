@@ -31,7 +31,7 @@ object Dependencies {
   )
 
   val boofcv = Seq(
-    "org.boofcv" % "boofcv-core" % V.boofcv excludeAll(
+    ("org.boofcv" % "boofcv-core" % V.boofcv).excludeAll(
       ExclusionRule("org.yaml", "snakeyaml")
     )
   )
