@@ -7,7 +7,7 @@ object Dependencies {
     val circeYaml = "0.15.1"
     val decline = "2.4.1"
     val munit = "1.0.0"
-    val munitCatsEffect = "2.0.0"
+    val munitCatsEffect = "2.1.0"
     val scala = "3.4.2"
     val fs2 = "3.10.2"
     val pdfbox = "3.0.2"
@@ -31,7 +31,7 @@ object Dependencies {
   )
 
   val boofcv = Seq(
-    "org.boofcv" % "boofcv-core" % V.boofcv excludeAll(
+    ("org.boofcv" % "boofcv-core" % V.boofcv).excludeAll(
       ExclusionRule("org.yaml", "snakeyaml")
     )
   )
